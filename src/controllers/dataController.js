@@ -1,9 +1,9 @@
-const Data = require('../models/Data');
+const PolicyManagerAttribute = require('../models/Data');
 const logger = require('../utils/logger');
 
 exports.getData = async (req, res) => {
   try {
-    const data = await Data.find({});
+    const data = await PolicyManagerAttribute.find({});
     res.status(200).json(data);
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
@@ -12,10 +12,29 @@ exports.getData = async (req, res) => {
 };
 
 exports.postData = async (req, res) => {
-  const { category, options } = req.body;
+  const {
+    documentStoreOptions,
+    documentLocationOptions,
+    documentOptions,
+    containsOptions,
+    withOptions,
+    thenOptions,
+    roleOptions,
+    atOptions,
+  } = req.body;
 
   try {
-    const newData = new Data({ category, options });
+    const newData = new PolicyManagerAttribute({
+      documentStoreOptions,
+      documentLocationOptions,
+      documentOptions,
+      containsOptions,
+      withOptions,
+      thenOptions,
+      roleOptions,
+      atOptions,
+    });
+
     await newData.save();
     res.status(201).json(newData);
   } catch (error) {
