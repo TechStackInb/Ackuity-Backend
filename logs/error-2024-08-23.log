@@ -1,9 +1,0 @@
-{"level":"error","message":"[POST] /api/auth/login - Invalid credentials","timestamp":"2024-08-23T06:23:24.322Z"}
-{"level":"error","message":"[POST] /api/auth/login - Invalid credentials","timestamp":"2024-08-23T06:25:19.096Z"}
-{"level":"error","message":"[POST] /api/auth/login - Invalid credentials","timestamp":"2024-08-23T06:34:18.662Z"}
-{"level":"error","message":"[POST] /api/auth/login - Invalid credentials","timestamp":"2024-08-23T06:40:39.382Z"}
-{"level":"error","message":"[POST] /api/auth/login - Invalid credentials","timestamp":"2024-08-23T06:40:55.116Z"}
-{"level":"error","message":"[GET] /api/data/ - No token provided","timestamp":"2024-08-23T06:45:15.221Z"}
-{"level":"error","message":"[POST] /api/data - No cookie token provided","timestamp":"2024-08-23T06:56:08.244Z"}
-{"level":"error","message":"[POST] /api/auth/login - Invalid credentials","timestamp":"2024-08-23T06:56:49.191Z"}
-{"level":"error","message":"[GET] /api/data - No cookie token provided","timestamp":"2024-08-23T06:57:07.324Z"}
