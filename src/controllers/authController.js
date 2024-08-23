@@ -79,3 +79,21 @@ exports.refreshToken = (req, res) => {
     res.status(403).json({ message: 'Invalid refresh token' });
   }
 };
+
+exports.logout = (req, res) => {
+  res.cookie('accessToken', '', {
+    httpOnly: true,
+    // secure: true,
+    expires: new Date(0),
+    maxAge: 0,
+  });
+
+  res.cookie('refreshToken', '', {
+    httpOnly: true,
+    // secure: true,
+    expires: new Date(0),
+    maxAge: 0,
+  });
+
+  res.send('Cookies have been cleared!, you can logout');
+};

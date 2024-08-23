@@ -28,9 +28,9 @@ app.use((req, res, next) => {
 });
 
 const corsOptions = {
-  origin: 'https://ackuitypreview.netlify.app', // Only allow requests from this domain
-  // methods: ['GET', 'POST'], // Only allow GET and POST methods
-  // allowedHeaders: ['Content-Type', 'Authorization'], // Allow these headers
+  // origin: 'https://ackuitypreview.netlify.app',
+  // methods: ['GET', 'POST'],
+  // allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
 // Middleware
