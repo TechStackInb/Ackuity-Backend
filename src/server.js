@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 
 const corsOptions = {
   // origin: 'https://ackuitypreview.netlify.app',
-  // methods: ['GET', 'POST'],
+  // methods: ['GET', 'POST', 'PATCH', 'DELETE'],
   // allowedHeaders: ['Content-Type', 'Authorization'],
 };
 
@@ -63,6 +63,10 @@ app.use(limiter);
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));
 app.use('/api/data', require('./routes/dataRoutes'));
+
+app.use((req, res, next) => {
+  res.status(404).json({ message: 'Not Found - Invalid endpoint' });
+});
 
 // Error handling middleware
 app.use(errorHandler);

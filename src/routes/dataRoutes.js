@@ -13,7 +13,6 @@ router
   .route('/policyManagerAttribute')
   .get(protect, getData)
   .post(protect, postData);
-
 router
   .route('/policyManagerAttribute/:id')
   .patch(protect, updateData)
