@@ -40,7 +40,7 @@ exports.postData = async (req, res) => {
 };
 
 exports.updateData = async (req, res) => {
-  const { id } = req.query;
+  const { id } = req.params;
   const updateFields = req.body;
 
   try {
@@ -62,7 +62,7 @@ exports.updateData = async (req, res) => {
 };
 
 exports.deleteData = async (req, res) => {
-  const { id } = req.query;
+  const { id } = req.params;
 
   try {
     const deletedData = await PolicyManagerAttribute.findByIdAndDelete(id);
