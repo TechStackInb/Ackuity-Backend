@@ -32,10 +32,10 @@ exports.postData = async (req, res) => {
   try {
     const newData = new PolicyManagerAttribute(req.body);
     await newData.save();
-    res.status(201).json(newData);
+    res.status(201).json({ message: 'Data saved', newData });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -54,10 +54,10 @@ exports.updateData = async (req, res) => {
       return res.status(404).json({ message: 'Data not found' });
     }
 
-    res.status(200).json(updatedData);
+    res.status(200).json({ message: 'Data updated', updatedData });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -74,6 +74,6 @@ exports.deleteData = async (req, res) => {
     res.status(200).json({ message: 'Data deleted successfully' });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };

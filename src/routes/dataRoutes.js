@@ -12,7 +12,10 @@ const router = express.Router();
 router
   .route('/policyManagerAttribute')
   .get(protect, getData)
-  .post(protect, postData)
+  .post(protect, postData);
+
+router
+  .route('/policyManagerAttribute/:id')
   .patch(protect, updateData)
   .delete(protect, deleteData);
 
