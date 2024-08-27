@@ -29,29 +29,8 @@ exports.getData = async (req, res) => {
 };
 
 exports.postData = async (req, res) => {
-  const {
-    documentStoreOptions,
-    documentLocationOptions,
-    documentOptions,
-    containsOptions,
-    withOptions,
-    thenOptions,
-    roleOptions,
-    atOptions,
-  } = req.body;
-
   try {
-    const newData = new PolicyManagerAttribute({
-      documentStoreOptions,
-      documentLocationOptions,
-      documentOptions,
-      containsOptions,
-      withOptions,
-      thenOptions,
-      roleOptions,
-      atOptions,
-    });
-
+    const newData = new PolicyManagerAttribute(req.body);
     await newData.save();
     res.status(201).json(newData);
   } catch (error) {
