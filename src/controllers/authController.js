@@ -97,3 +97,36 @@ exports.logout = (req, res) => {
 
   res.send('Cookies have been cleared!, you can logout');
 };
+
+// exports.createUser = async (req, res) => {
+//   const { email, password, role } = req.body;
+
+//   try {
+//     // Check if the user already exists
+//     const existingUser = await User.findOne({ email });
+//     if (existingUser) {
+//       return res.status(400).json({ message: 'User already exists' });
+//     }
+
+//     // Create the new user
+//     const newUser = new User({
+//       email,
+//       password,
+//       role, // Optional, defaults to 'user' if not provided
+//     });
+
+//     await newUser.save();
+
+//     res.status(201).json({
+//       message: 'User created successfully',
+//       user: {
+//         id: newUser._id,
+//         email: newUser.email,
+//         role: newUser.role,
+//       },
+//     });
+//   } catch (error) {
+//     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };

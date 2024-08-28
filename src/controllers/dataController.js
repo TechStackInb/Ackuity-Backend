@@ -1,6 +1,5 @@
 const logger = require('../utils/logger');
 
-// Get data with pagination
 exports.getData = (Model) => async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
 
@@ -26,7 +25,6 @@ exports.getData = (Model) => async (req, res) => {
   }
 };
 
-// Post new data
 exports.postData = (Model) => async (req, res) => {
   try {
     const newData = new Model(req.body);
@@ -38,7 +36,6 @@ exports.postData = (Model) => async (req, res) => {
   }
 };
 
-// Update data by ID
 exports.updateData = (Model) => async (req, res) => {
   const { id } = req.params;
 
@@ -59,7 +56,6 @@ exports.updateData = (Model) => async (req, res) => {
   }
 };
 
-// Delete data by ID
 exports.deleteData = (Model) => async (req, res) => {
   const { id } = req.params;
 

@@ -6,6 +6,7 @@ const PolicyManagerAttribute = require('../models/PolicyManagerAttribute');
 const PolicyManagerPrivacy = require('../models/PolicyManagerPrivacy');
 const { protect } = require('../middlewares/authMiddleware');
 
+// PolicyManagerAttribute
 router
   .route('/policyManagerAttribute')
   .get(protect, dataController.getData(PolicyManagerAttribute))
@@ -16,6 +17,7 @@ router
   .patch(protect, dataController.updateData(PolicyManagerAttribute))
   .delete(protect, dataController.deleteData(PolicyManagerAttribute));
 
+// PolicyManagerPrivacy
 router
   .route('/policyManagerPrivacy')
   .get(protect, dataController.getData(PolicyManagerPrivacy))

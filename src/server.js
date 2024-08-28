@@ -16,6 +16,8 @@ connectDB();
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 // Request Logger Middleware
 app.use((req, res, next) => {
   const origin = req.headers.origin || req.headers.referer || 'unknown origin';
