@@ -16,7 +16,7 @@ connectDB();
 
 const app = express();
 
-// app.set('trust proxy', 1);
+app.set('trust proxy', 1);
 
 // Request Logger Middleware
 app.use((req, res, next) => {
@@ -35,9 +35,11 @@ const options = {
   allowedHeaders: ['Content-Type', 'Authorization'],
 };
 app.use(cors(options));
+// app.use(cors());
 
 // Handle preflight requests
 app.options('*', cors(options));
+// app.options('*', cors());
 
 // Middleware
 app.use(helmet());
