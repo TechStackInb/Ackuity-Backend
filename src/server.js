@@ -33,13 +33,12 @@ const options = {
   origin: 'https://ackuitypreview.netlify.app',
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization'],
+  credentials: true,
 };
 app.use(cors(options));
-// app.use(cors());
 
 // Handle preflight requests
 app.options('*', cors(options));
-// app.options('*', cors());
 
 // Middleware
 app.use(helmet());
