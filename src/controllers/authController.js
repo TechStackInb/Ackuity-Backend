@@ -27,11 +27,13 @@ exports.login = async (req, res) => {
       httpOnly: true,
       secure: true,
       maxAge: 15 * 60 * 1000,
+      sameSite: 'None',
     });
     res.cookie('refreshToken', refreshToken, {
       httpOnly: true,
       secure: true,
       maxAge: 7 * 24 * 60 * 60 * 1000,
+      sameSite: 'None',
     });
 
     const tokenExpiry = new Date(Date.now() + 15 * 60 * 1000).toISOString();
@@ -66,6 +68,7 @@ exports.refreshToken = (req, res) => {
       httpOnly: true,
       secure: true, // Enable secure cookie in production
       maxAge: 15 * 60 * 1000,
+      sameSite: 'None',
     });
 
     const tokenExpiry = new Date(Date.now() + 15 * 60 * 1000).toISOString();
@@ -83,14 +86,14 @@ exports.refreshToken = (req, res) => {
 exports.logout = (req, res) => {
   res.cookie('accessToken', '', {
     httpOnly: true,
-    // secure: true,
+    secure: true,
     expires: new Date(0),
     maxAge: 0,
   });
 
   res.cookie('refreshToken', '', {
     httpOnly: true,
-    // secure: true,
+    secure: true,
     expires: new Date(0),
     maxAge: 0,
   });
