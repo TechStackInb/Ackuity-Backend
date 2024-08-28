@@ -16,7 +16,7 @@ connectDB();
 
 const app = express();
 
-app.set('trust proxy', 1);
+// app.set('trust proxy', 1);
 
 // Request Logger Middleware
 app.use((req, res, next) => {
@@ -29,15 +29,18 @@ app.use((req, res, next) => {
   next();
 });
 
-const corsOptions = {
-  // origin: 'https://ackuitypreview.netlify.app',
-  // methods: ['GET', 'POST', 'PATCH', 'DELETE'],
-  // allowedHeaders: ['Content-Type', 'Authorization'],
+const options = {
+  origin: 'https://ackuitypreview.netlify.app',
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization'],
 };
+app.use(cors(options));
+
+// Handle preflight requests
+app.options('*', cors(options));
 
 // Middleware
 app.use(helmet());
-app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
