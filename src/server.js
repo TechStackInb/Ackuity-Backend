@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 
 const options = {
   origin: 'https://ackuitypreview.netlify.app',
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };

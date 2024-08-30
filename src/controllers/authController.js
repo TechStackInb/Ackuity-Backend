@@ -51,9 +51,7 @@ exports.refreshToken = (req, res) => {
   console.log(refreshToken, 'RefreshToken - authController');
 
   if (!refreshToken) {
-    return res
-      .status(403)
-      .json({ message: 'Access denied, no token provided' });
+    return res.status(403).json({ message: 'Access denied, login required' });
   }
 
   try {
