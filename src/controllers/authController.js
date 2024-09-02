@@ -41,14 +41,13 @@ exports.login = async (req, res) => {
     res.status(200).json({ message: 'Logged in successfully', tokenExpiry });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
 // Refresh Token Function
 exports.refreshToken = (req, res) => {
   const { refreshToken } = req.cookies;
-  console.log(refreshToken, 'RefreshToken - authController');
 
   if (!refreshToken) {
     return res.status(403).json({ message: 'Access denied, login required' });
@@ -56,6 +55,36 @@ exports.refreshToken = (req, res) => {
 
   try {
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+
+    // Check if refresh token validity is less than 10 hours
+    const remainingValidity = decoded.exp * 1000 - Date.now();
+    const oneHourInMilliseconds = 1 * 60 * 60 * 1000;
+
+    if (remainingValidity < oneHourInMilliseconds) {
+      // Issue a new refresh token
+      const newRefreshToken = jwt.sign(
+        { id: decoded.id },
+        process.env.JWT_REFRESH_SECRET,
+        { expiresIn: '7d' }
+      );
+
+      // Clear the old refresh token cookie
+      res.cookie('refreshToken', '', {
+        httpOnly: true,
+        secure: true, // Enable secure cookie in production
+        maxAge: 0, // Set expiration time to 0 to delete the cookie
+        sameSite: 'None',
+      });
+
+      // Set the new refresh token cookie
+      res.cookie('refreshToken', newRefreshToken, {
+        httpOnly: true,
+        secure: true, // Enable secure cookie in production
+        maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+        sameSite: 'None',
+      });
+    }
+
     const newAccessToken = jwt.sign(
       { id: decoded.id },
       process.env.JWT_ACCESS_SECRET,
@@ -128,6 +157,6 @@ exports.logout = (req, res) => {
 //     });
 //   } catch (error) {
 //     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-//     res.status(500).json({ message: 'Server error' });
+//     res.status(500).json({ message: error.message });
 //   }
 // };

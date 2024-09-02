@@ -21,7 +21,7 @@ exports.getData = (Model) => async (req, res) => {
     });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -32,7 +32,7 @@ exports.postData = (Model) => async (req, res) => {
     res.status(201).json({ message: 'Data saved', data: newData });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -43,6 +43,7 @@ exports.updateData = (Model) => async (req, res) => {
     const updatedData = await Model.findByIdAndUpdate(id, req.body, {
       new: true,
       runValidators: true,
+      strict: true,
     });
 
     if (!updatedData) {
@@ -52,7 +53,7 @@ exports.updateData = (Model) => async (req, res) => {
     res.status(200).json({ message: 'Data updated', data: updatedData });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };
 
@@ -69,6 +70,6 @@ exports.deleteData = (Model) => async (req, res) => {
     res.status(200).json({ message: 'Data deleted successfully' });
   } catch (error) {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: 'Server error' });
+    res.status(500).json({ message: error.message });
   }
 };

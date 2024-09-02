@@ -36,7 +36,11 @@ const FunctionCallSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  selectApiDataFields: [checkBoxSchema],
+  selectApiDataFields: {
+    type: [checkBoxSchema],
+    validate: (v) => Array.isArray(v) && v.length == 9,
+    required: true,
+  },
   actionOnDataField: {
     type: String,
     enum: ['Oppurtunity Name', 'Account Name', 'Account', 'Age'],
@@ -52,7 +56,11 @@ const FunctionCallSchema = new mongoose.Schema({
     enum: ['Sales NA', 'Management'],
     required: true,
   },
-  actionOnPermissionRevised: [checkBoxSchema],
+  actionOnPermissionRevised: {
+    type: [checkBoxSchema],
+    validate: (v) => Array.isArray(v) && v.length == 2,
+    required: true,
+  },
   actionOnPrivacyFilteringCategory: {
     type: String,
     enum: ['Asia', 'North America'],
