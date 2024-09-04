@@ -1,4 +1,5 @@
 const logger = require('../utils/logger');
+const he = require('he');
 
 exports.getData = (Model) => async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
@@ -27,7 +28,8 @@ exports.getData = (Model) => async (req, res) => {
 
 exports.postData = (Model) => async (req, res) => {
   try {
-    const newData = new Model(req.body);
+    const escapedBody = escapeHtml(req.body);
+    const newData = new Model(escapedBody);
     await newData.save();
     res.status(201).json({ message: 'Data saved', data: newData });
   } catch (error) {
@@ -40,7 +42,9 @@ exports.updateData = (Model) => async (req, res) => {
   const { id } = req.params;
 
   try {
-    const updatedData = await Model.findByIdAndUpdate(id, req.body, {
+    const escapedBody = escapeHtml(req.body);
+
+    const updatedData = await Model.findByIdAndUpdate(id, escapedBody, {
       new: true,
       runValidators: true,
       strict: true,
@@ -72,4 +76,16 @@ exports.deleteData = (Model) => async (req, res) => {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
     res.status(500).json({ message: error.message });
   }
+};
+
+const escapeHtml = (data) => {
+  const escapedData = {};
+  for (const key in data) {
+    if (typeof data[key] === 'string') {
+      escapedData[key] = he.escape(data[key]);
+    } else {
+      escapedData[key] = data[key];
+    }
+  }
+  return escapedData;
 };
