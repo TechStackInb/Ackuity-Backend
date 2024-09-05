@@ -7,6 +7,7 @@ const PolicyManagerAttribute = require('../models/PolicyManagerAttribute');
 const PolicyManagerPrivacy = require('../models/PolicyManagerPrivacy');
 const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCalling');
 const ThreatManagement = require('../models/ThreatManagement');
+const ChartData = require('../models/ChartData');
 
 // PolicyManager Attribute
 router
@@ -50,5 +51,11 @@ router
   .route('/threatManagement/:id')
   .patch(protect, dataController.updateData(ThreatManagement))
   .delete(protect, dataController.deleteData(ThreatManagement));
+
+// Chart
+router
+  .route('/chartData')
+  .get(protect, dataController.getData(ChartData))
+  .put(protect, dataController.putData(ChartData));
 
 module.exports = router;

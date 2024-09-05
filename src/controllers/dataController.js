@@ -77,3 +77,25 @@ exports.deleteData = (Model) => async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
+
+exports.putData = (Model) => async (req, res) => {
+  const { title, labels, values } = req.body;
+
+  try {
+    const updatedChart = await Model.findOneAndUpdate(
+      { title }, // Find by title
+      { 'data.labels': labels, 'data.values': values }, // Update labels and values
+      { new: true } // Return the updated document
+    );
+
+    if (!updatedChart) {
+      return res.status(404).json({ message: 'Chart not found' });
+    }
+
+    res
+      .status(200)
+      .json({ message: 'Chart data updated successfully', updatedChart });
+  } catch (error) {
+    res.status(500).json({ message: 'Error updating chart data' });
+  }
+};
