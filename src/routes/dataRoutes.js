@@ -2,10 +2,11 @@ const express = require('express');
 const router = express.Router();
 
 const dataController = require('../controllers/dataController');
+const { protect } = require('../middlewares/authMiddleware');
 const PolicyManagerAttribute = require('../models/PolicyManagerAttribute');
 const PolicyManagerPrivacy = require('../models/PolicyManagerPrivacy');
-const { protect } = require('../middlewares/authMiddleware');
 const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCalling');
+const ThreatManagement = require('../models/ThreatManagement');
 
 // PolicyManager Attribute
 router
@@ -39,4 +40,15 @@ router
   .route('/policyManagerFunctionCalling/:id')
   .patch(protect, dataController.updateData(PolicyManagerFunctionCalling))
   .delete(protect, dataController.deleteData(PolicyManagerFunctionCalling));
+
+// ThreatManagement
+router
+  .route('/threatManagement')
+  .get(protect, dataController.getData(ThreatManagement))
+  .post(protect, dataController.postData(ThreatManagement));
+router
+  .route('/threatManagement/:id')
+  .patch(protect, dataController.updateData(ThreatManagement))
+  .delete(protect, dataController.deleteData(ThreatManagement));
+
 module.exports = router;

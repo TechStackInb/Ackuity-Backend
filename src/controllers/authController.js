@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const logger = require('../utils/logger');
+const { check, validationResult } = require('express-validator');
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -56,7 +57,7 @@ exports.refreshToken = (req, res) => {
   try {
     const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
 
-    // Check if refresh token validity is less than 10 hours
+    // Check if refresh token validity is less than 1 hour
     const remainingValidity = decoded.exp * 1000 - Date.now();
     const oneHourInMilliseconds = 1 * 60 * 60 * 1000;
 
@@ -71,15 +72,15 @@ exports.refreshToken = (req, res) => {
       // Clear the old refresh token cookie
       res.cookie('refreshToken', '', {
         httpOnly: true,
-        secure: true, // Enable secure cookie in production
-        maxAge: 0, // Set expiration time to 0 to delete the cookie
+        secure: true,
+        maxAge: 0,
         sameSite: 'None',
       });
 
       // Set the new refresh token cookie
       res.cookie('refreshToken', newRefreshToken, {
         httpOnly: true,
-        secure: true, // Enable secure cookie in production
+        secure: true,
         maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
         sameSite: 'None',
       });
@@ -93,7 +94,7 @@ exports.refreshToken = (req, res) => {
 
     res.cookie('accessToken', newAccessToken, {
       httpOnly: true,
-      secure: true, // Enable secure cookie in production
+      secure: true,
       maxAge: 15 * 60 * 1000,
       sameSite: 'None',
     });
@@ -128,35 +129,33 @@ exports.logout = (req, res) => {
   res.send('Cookies have been cleared!, you can logout');
 };
 
-// exports.createUser = async (req, res) => {
-//   const { email, password, role } = req.body;
+exports.createUser = async (req, res) => {
+  const { email, password, role } = req.body;
 
-//   try {
-//     // Check if the user already exists
-//     const existingUser = await User.findOne({ email });
-//     if (existingUser) {
-//       return res.status(400).json({ message: 'User already exists' });
-//     }
+  try {
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      return res.status(400).json({ message: 'User already exists' });
+    }
 
-//     // Create the new user
-//     const newUser = new User({
-//       email,
-//       password,
-//       role, // Optional, defaults to 'user' if not provided
-//     });
+    const newUser = new User({
+      email,
+      password,
+      role, // Optional
+    });
 
-//     await newUser.save();
+    await newUser.save();
 
-//     res.status(201).json({
-//       message: 'User created successfully',
-//       user: {
-//         id: newUser._id,
-//         email: newUser.email,
-//         role: newUser.role,
-//       },
-//     });
-//   } catch (error) {
-//     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-//     res.status(500).json({ message: error.message });
-//   }
-// };
+    res.status(201).json({
+      message: 'User created successfully',
+      user: {
+        id: newUser._id,
+        email: newUser.email,
+        role: newUser.role,
+      },
+    });
+  } catch (error) {
+    logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
+    res.status(500).json({ message: error.message });
+  }
+};

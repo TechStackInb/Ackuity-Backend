@@ -1,5 +1,5 @@
 const logger = require('../utils/logger');
-const he = require('he');
+const escapeHtml = require('../utils/escapeHtml');
 
 exports.getData = (Model) => async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
@@ -76,16 +76,4 @@ exports.deleteData = (Model) => async (req, res) => {
     logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
     res.status(500).json({ message: error.message });
   }
-};
-
-const escapeHtml = (data) => {
-  const escapedData = {};
-  for (const key in data) {
-    if (typeof data[key] === 'string') {
-      escapedData[key] = he.escape(data[key]);
-    } else {
-      escapedData[key] = data[key];
-    }
-  }
-  return escapedData;
 };
