@@ -3,6 +3,12 @@ const mongoose = require('mongoose');
 const ChartDataSchema = new mongoose.Schema({
   title: {
     type: String,
+    enum: [
+      'Total Served',
+      'Total Denied',
+      'Total Transformed',
+      'Total Threats',
+    ],
     required: true,
   },
   data: {
