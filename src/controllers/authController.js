@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const logger = require('../utils/logger');
-const { check, validationResult } = require('express-validator');
+const escapeHtml = require('../utils/escapeHtml');
 
 exports.login = async (req, res) => {
   const { email, password } = req.body;
@@ -46,7 +46,6 @@ exports.login = async (req, res) => {
   }
 };
 
-// Refresh Token Function
 exports.refreshToken = (req, res) => {
   const { refreshToken } = req.cookies;
 
@@ -62,14 +61,12 @@ exports.refreshToken = (req, res) => {
     const oneHourInMilliseconds = 1 * 60 * 60 * 1000;
 
     if (remainingValidity < oneHourInMilliseconds) {
-      // Issue a new refresh token
       const newRefreshToken = jwt.sign(
         { id: decoded.id },
         process.env.JWT_REFRESH_SECRET,
         { expiresIn: '7d' }
       );
 
-      // Clear the old refresh token cookie
       res.cookie('refreshToken', '', {
         httpOnly: true,
         secure: true,
@@ -77,7 +74,6 @@ exports.refreshToken = (req, res) => {
         sameSite: 'None',
       });
 
-      // Set the new refresh token cookie
       res.cookie('refreshToken', newRefreshToken, {
         httpOnly: true,
         secure: true,
@@ -130,7 +126,8 @@ exports.logout = (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-  const { email, password, role } = req.body;
+  htmlEscapedBody = escapeHtml(req.body);
+  const { email, password, role } = htmlEscapedBody;
 
   try {
     const existingUser = await User.findOne({ email });

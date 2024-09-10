@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const ThreatManagementSchema = mongoose.Schema({
+const ThreatManagementSchema = new mongoose.Schema({
   threatName: {
     type: String,
     required: true,
