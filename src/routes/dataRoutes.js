@@ -8,6 +8,7 @@ const PolicyManagerPrivacy = require('../models/PolicyManagerPrivacy');
 const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCalling');
 const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
+const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 
 // PolicyManager Privacy
 router
@@ -41,6 +42,16 @@ router
   .route('/policyManagerFunctionCalling/:id')
   .patch(protect, dataController.updateData(PolicyManagerFunctionCalling))
   .delete(protect, dataController.deleteData(PolicyManagerFunctionCalling));
+
+// PolicyManager Permissions
+router
+  .route('/policyManagerPermissions')
+  .get(protect, dataController.getData(PolicyManagerPermission))
+  .post(protect, dataController.postData(PolicyManagerPermission));
+router
+  .route('/policyManagerPermissions/:id')
+  .patch(protect, dataController.updateData(PolicyManagerPermission))
+  .delete(protect, dataController.deleteData(PolicyManagerPermission));
 
 // ThreatManagement
 router
