@@ -3,7 +3,7 @@ const {
   login,
   refreshToken,
   logout,
-  createUser,
+  keepAlive,
 } = require('../controllers/authController');
 
 const router = express.Router();
@@ -11,6 +11,6 @@ const router = express.Router();
 router.post('/login', login);
 router.post('/refresh', refreshToken);
 router.post('/logout', logout);
-// router.post('/createUser', createUser);
+router.get('/keep-alive', keepAlive);
 
 module.exports = router;
