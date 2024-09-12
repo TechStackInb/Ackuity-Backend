@@ -29,9 +29,19 @@ app.use((req, res, next) => {
   next();
 });
 
+const allowedOrigins = [
+  'https://ackuitypreview.netlify.app',
+  'https://rgi.kxt.mybluehostin.me/',
+];
 const options = {
-  origin: 'https://ackuitypreview.netlify.app',
-  methods: ['GET', 'POST', 'DELETE', 'OPTIONS', 'PATCH'],
+  origin: (origin, callback) => {
+    if (allowedOrigins.includes(origin) || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
+  methods: ['GET', 'POST', 'DELETE', 'OPTIONS', 'PATCH', 'PUT'],
   allowedHeaders: ['Content-Type', 'Authorization'],
   credentials: true,
 };
