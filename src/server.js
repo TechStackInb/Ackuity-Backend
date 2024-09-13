@@ -4,6 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
+const csrf = require('csurf');
 const connectDB = require('./config/db');
 const logger = require('./utils/logger');
 const { errorHandler } = require('./middlewares/errorMiddleware');
@@ -18,6 +19,10 @@ const app = express();
 
 app.set('trust proxy', 1);
 
+const csrfProtection = csrf({ cookie: true });
+
+app.use(csrfProtection);
+
 // Request Logger Middleware
 app.use((req, res, next) => {
   const origin = req.headers.origin || req.headers.referer || 'unknown origin';
@@ -29,13 +34,10 @@ app.use((req, res, next) => {
   next();
 });
 
-const allowedOrigins = [
-  'https://ackuitypreview.netlify.app',
-  'https://rgi.kxt.mybluehostin.me/',
-];
+const allowedOrigins = ['https://ackuitypreview.netlify.app'];
 const options = {
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin) || !origin) {
+    if (allowedOrigins.includes(origin)) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
