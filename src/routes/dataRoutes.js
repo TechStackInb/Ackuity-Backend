@@ -9,6 +9,7 @@ const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCal
 const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
+const Members = require('../models/Members');
 
 // PolicyManager Privacy
 router
@@ -72,5 +73,11 @@ router
 router
   .route('/chartData/getAverage')
   .get(protect, dataController.getAverages(ChartData));
+
+// Members
+router
+  .route('/members')
+  .get(protect, dataController.getData(Members))
+  .post(protect, dataController.postData(Members));
 
 module.exports = router;
