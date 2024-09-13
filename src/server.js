@@ -4,7 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const csrf = require('csurf');
+// const csrf = require('csurf');
 const connectDB = require('./config/db');
 const logger = require('./utils/logger');
 const { errorHandler } = require('./middlewares/errorMiddleware');
@@ -19,9 +19,9 @@ const app = express();
 
 app.set('trust proxy', 1);
 
-const csrfProtection = csrf({ cookie: true });
+// const csrfProtection = csrf({ cookie: true });
 
-app.use(csrfProtection);
+// app.use(csrfProtection);
 
 // Request Logger Middleware
 app.use((req, res, next) => {
