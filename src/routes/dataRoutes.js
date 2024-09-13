@@ -64,7 +64,9 @@ router
   .delete(protect, dataController.deleteData(ThreatManagement));
 
 // Chart
-router.route('/chartData').get(protect, dataController.getData(ChartData));
+router
+  .route('/chartData')
+  .get(protect, dataController.getRecentEntries(ChartData));
 // .post(protect, dataController.postData(ChartData));
 // .put(protect, dataController.putData(ChartData));
 router

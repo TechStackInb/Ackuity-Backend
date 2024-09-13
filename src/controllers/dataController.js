@@ -1,6 +1,5 @@
 const logger = require('../utils/logger');
 const escapeHtml = require('../utils/escapeHtml');
-const Chart = require('../models/ChartData');
 
 exports.getData = (Model) => async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
@@ -116,6 +115,18 @@ exports.getAverages = (Model) => async (req, res) => {
   }
 };
 
+exports.getRecentEntries = (Model) => async (req, res) => {
+  try {
+    const recentEntries = await getMostRecentEntries(Model);
+
+    res.status(200).json({
+      recentEntries,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to get recent entries' });
+  }
+};
+
 const calculateAverages = async (days, Model) => {
   const dateThreshold = new Date();
   dateThreshold.setDate(dateThreshold.getDate() - days);
@@ -138,4 +149,30 @@ const calculateAverages = async (days, Model) => {
   ]);
 
   return averages;
+};
+
+const getMostRecentEntries = async (Model) => {
+  const recentEntries = await Model.aggregate([
+    {
+      $sort: {
+        createdAt: -1, // Sort by createdAt in descending order
+      },
+    },
+    {
+      $group: {
+        _id: '$title',
+        mostRecent: { $first: '$$ROOT' }, // Get the most recent document for each title
+      },
+    },
+    {
+      $project: {
+        _id: 0, // Remove the _id field from the result
+        title: '$_id',
+        data: '$mostRecent.data', // Include the data field from the most recent document
+        createdAt: '$mostRecent.createdAt',
+      },
+    },
+  ]);
+
+  return recentEntries;
 };
