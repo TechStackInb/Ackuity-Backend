@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 const allowedOrigins = ['https://ackuitypreview.netlify.app'];
 const options = {
   origin: (origin, callback) => {
-    if (allowedOrigins.includes(origin)) {
+    if (allowedOrigins.includes(origin) || !origin) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));

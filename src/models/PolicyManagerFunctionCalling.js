@@ -65,42 +65,47 @@ const functionCallingPlusDataArray = new mongoose.Schema({
   },
 });
 
-const FunctionCallSchema = new mongoose.Schema({
-  policyName: { type: String, required: true },
-  query: {
-    type: String,
-    enum: ['Net Sales Orders', 'Total Sales Orders'],
-    required: true,
+const FunctionCallSchema = new mongoose.Schema(
+  {
+    policyName: { type: String, required: true },
+    query: {
+      type: String,
+      enum: ['Net Sales Orders', 'Total Sales Orders'],
+      required: true,
+    },
+    targetApplication: {
+      type: String,
+      enum: ['Salesforce', 'Servicenow', 'Microsoft Dynamics'],
+      required: true,
+    },
+    genAiApp: {
+      type: String,
+      enum: ['App1', 'App2', 'App3', 'App4'],
+      required: true,
+    },
+    selectApiName: {
+      type: String,
+      enum: ['App1', 'App2', 'App3'],
+      required: true,
+    },
+    selectApiDescription: {
+      type: String,
+      required: true,
+    },
+    selectApiDataFields: {
+      type: [checkBoxSchema],
+      validate: (v) => Array.isArray(v) && v.length == 9,
+      required: true,
+    },
+    functionCallingPlusData: {
+      type: [functionCallingPlusDataArray],
+      required: true,
+    },
   },
-  targetApplication: {
-    type: String,
-    enum: ['Salesforce', 'Servicenow', 'Microsoft Dynamics'],
-    required: true,
-  },
-  genAiApp: {
-    type: String,
-    enum: ['App1', 'App2', 'App3', 'App4'],
-    required: true,
-  },
-  selectApiName: {
-    type: String,
-    enum: ['App1', 'App2', 'App3'],
-    required: true,
-  },
-  selectApiDescription: {
-    type: String,
-    required: true,
-  },
-  selectApiDataFields: {
-    type: [checkBoxSchema],
-    validate: (v) => Array.isArray(v) && v.length == 9,
-    required: true,
-  },
-  functionCallingPlusData: {
-    type: [functionCallingPlusDataArray],
-    required: true,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const PolicyManagerFunctionCalling = mongoose.model(
   'PolicyManagerFunctionCalling',

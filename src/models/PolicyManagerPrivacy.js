@@ -33,23 +33,28 @@ const sectionDataSchema = new mongoose.Schema({
   },
 });
 
-const privacySchema = new mongoose.Schema({
-  policyName: { type: String, required: true },
-  documentStoreOptions: {
-    type: String,
-    enum: ['Document Store', 'Share Point', 'One Drive'],
-    required: true,
+const privacySchema = new mongoose.Schema(
+  {
+    policyName: { type: String, required: true },
+    documentStoreOptions: {
+      type: String,
+      enum: ['Document Store', 'Share Point', 'One Drive'],
+      required: true,
+    },
+    documentLocationOptions: {
+      type: String,
+      enum: ['Document Location', 'Another Option', 'Another Option'],
+      required: true,
+    },
+    multipleSectionData: {
+      type: [sectionDataSchema],
+      required: true,
+    },
   },
-  documentLocationOptions: {
-    type: String,
-    enum: ['Document Location', 'Another Option', 'Another Option'],
-    required: true,
-  },
-  multipleSectionData: {
-    type: [sectionDataSchema],
-    required: true,
-  },
-});
+  {
+    timestamps: true,
+  }
+);
 
 const PolicyManagerPrivacy = mongoose.model(
   'PolicyManagerPrivacy',

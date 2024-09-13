@@ -1,5 +1,6 @@
 const logger = require('../utils/logger');
 const escapeHtml = require('../utils/escapeHtml');
+const Chart = require('../models/ChartData');
 
 exports.getData = (Model) => async (req, res) => {
   const { page = 1, limit = 10 } = req.query;
@@ -98,4 +99,43 @@ exports.putData = (Model) => async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: 'Error updating chart data' });
   }
+};
+
+// Calculate Average
+exports.getAverages = (Model) => async (req, res) => {
+  try {
+    const sevenDayAverages = await calculateAverages(7, Model);
+    const thirtyDayAverages = await calculateAverages(30, Model);
+
+    res.status(200).json({
+      sevenDayAverages,
+      thirtyDayAverages,
+    });
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to calculate averages' });
+  }
+};
+
+const calculateAverages = async (days, Model) => {
+  const dateThreshold = new Date();
+  dateThreshold.setDate(dateThreshold.getDate() - days);
+
+  const averages = await Model.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: dateThreshold },
+      },
+    },
+    {
+      $group: {
+        _id: '$title',
+        avgRAG: { $avg: { $arrayElemAt: ['$data.values', 0] } },
+        avgFunctionCalling: { $avg: { $arrayElemAt: ['$data.values', 1] } },
+        avgAgents: { $avg: { $arrayElemAt: ['$data.values', 2] } },
+        avgChat2Database: { $avg: { $arrayElemAt: ['$data.values', 3] } },
+      },
+    },
+  ]);
+
+  return averages;
 };

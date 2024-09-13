@@ -6,9 +6,9 @@ const { protect } = require('../middlewares/authMiddleware');
 const PolicyManagerAttribute = require('../models/PolicyManagerAttribute');
 const PolicyManagerPrivacy = require('../models/PolicyManagerPrivacy');
 const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCalling');
+const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
-const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 
 // PolicyManager Privacy
 router
@@ -64,9 +64,11 @@ router
   .delete(protect, dataController.deleteData(ThreatManagement));
 
 // Chart
+router.route('/chartData').get(protect, dataController.getData(ChartData));
+// .post(protect, dataController.postData(ChartData));
+// .put(protect, dataController.putData(ChartData));
 router
-  .route('/chartData')
-  .get(protect, dataController.getData(ChartData))
-  .put(protect, dataController.putData(ChartData));
+  .route('/chartData/getAverage')
+  .get(protect, dataController.getAverages(ChartData));
 
 module.exports = router;
