@@ -11,6 +11,8 @@ const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
 const Member = require('../models/Member');
 
+const ThreatManagementAcData = require('../models/ThreatManagementAcData');
+
 // PolicyManager Privacy
 router
   .route('/policyManagerPrivacy')
@@ -64,6 +66,16 @@ router
   .patch(protect, dataController.updateData(ThreatManagement))
   .delete(protect, dataController.deleteData(ThreatManagement));
 
+// ThreatManagementAcData
+router
+  .route('/threatManagementacdata')
+  .get(protect, dataController.getData(ThreatManagementAcData))
+  .post(protect, dataController.postData(ThreatManagementAcData));
+router
+  .route('/threatManagementacdata/:id')
+  .patch(protect, dataController.updateData(ThreatManagementAcData))
+  .delete(protect, dataController.deleteData(ThreatManagementAcData));
+
 // Chart
 router
   .route('/chartData')
@@ -78,5 +90,9 @@ router
   .route('/members')
   .get(protect, dataController.getData(Member))
   .post(protect, dataController.postData(Member));
+router
+  .route('/members/:id')
+  .patch(protect, dataController.updateData(Member))
+  .delete(protect, dataController.deleteData(Member));
 
 module.exports = router;
