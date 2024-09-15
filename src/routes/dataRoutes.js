@@ -9,7 +9,7 @@ const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCal
 const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
-const Members = require('../models/Members');
+const Member = require('../models/Member');
 
 // PolicyManager Privacy
 router
@@ -47,7 +47,7 @@ router
 // PolicyManager Permissions
 router
   .route('/policyManagerPermissions')
-  .get(protect, dataController.getData(PolicyManagerPermission))
+  .get(protect, dataController.getData(PolicyManagerPermission, 'members'))
   .post(protect, dataController.postData(PolicyManagerPermission));
 router
   .route('/policyManagerPermissions/:id')
@@ -68,8 +68,7 @@ router
 router
   .route('/chartData')
   .get(protect, dataController.getRecentEntries(ChartData));
-// .post(protect, dataController.postData(ChartData));
-// .put(protect, dataController.putData(ChartData));
+
 router
   .route('/chartData/getAverage')
   .get(protect, dataController.getAverages(ChartData));
@@ -77,7 +76,7 @@ router
 // Members
 router
   .route('/members')
-  .get(protect, dataController.getData(Members))
-  .post(protect, dataController.postData(Members));
+  .get(protect, dataController.getData(Member))
+  .post(protect, dataController.postData(Member));
 
 module.exports = router;

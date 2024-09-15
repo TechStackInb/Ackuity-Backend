@@ -1,30 +1,40 @@
 const logger = require('../utils/logger');
 const escapeHtml = require('../utils/escapeHtml');
+const {
+  calculateAverages,
+  getMostRecentEntries,
+} = require('../utils/dataUtilFunctions');
 
-exports.getData = (Model) => async (req, res) => {
-  const { page = 1, limit = 10 } = req.query;
+exports.getData =
+  (Model, populateOptions = '') =>
+  async (req, res) => {
+    const { page = 1, limit = 10 } = req.query;
 
-  try {
-    const pageInt = parseInt(page, 10);
-    const limitInt = parseInt(limit, 10);
-    const startIndex = (pageInt - 1) * limitInt;
+    try {
+      const pageInt = parseInt(page, 10);
+      const limitInt = parseInt(limit, 10);
+      const startIndex = (pageInt - 1) * limitInt;
 
-    const [data, totalCount] = await Promise.all([
-      Model.find({}).skip(startIndex).limit(limitInt),
-      Model.countDocuments(),
-    ]);
+      // Use populate with the provided options (as a string or array)
+      const [data, totalCount] = await Promise.all([
+        Model.find({})
+          .populate(populateOptions) // Populate multiple fields
+          .skip(startIndex)
+          .limit(limitInt),
+        Model.countDocuments(),
+      ]);
 
-    res.status(200).json({
-      data,
-      currentPage: pageInt,
-      totalPages: Math.ceil(totalCount / limitInt),
-      totalItems: totalCount,
-    });
-  } catch (error) {
-    logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
-    res.status(500).json({ message: error.message });
-  }
-};
+      res.status(200).json({
+        data,
+        currentPage: pageInt,
+        totalPages: Math.ceil(totalCount / limitInt),
+        totalItems: totalCount,
+      });
+    } catch (error) {
+      logger.error(`[${req.method}] ${req.originalUrl} - ${error.message}`);
+      res.status(500).json({ message: error.message });
+    }
+  };
 
 exports.postData = (Model) => async (req, res) => {
   try {
@@ -125,126 +135,4 @@ exports.getRecentEntries = (Model) => async (req, res) => {
   } catch (error) {
     res.status(500).json({ error: 'Failed to get recent entries' });
   }
-};
-
-const calculateAverages = async (days, Model) => {
-  const dateThreshold = new Date();
-  dateThreshold.setDate(dateThreshold.getDate() - days);
-
-  const averages = await Model.aggregate([
-    {
-      $match: {
-        createdAt: { $gte: dateThreshold },
-      },
-    },
-    {
-      $group: {
-        _id: '$title',
-        avgRAG: { $avg: { $arrayElemAt: ['$data.values', 0] } },
-        avgFunctionCalling: { $avg: { $arrayElemAt: ['$data.values', 1] } },
-        avgAgents: { $avg: { $arrayElemAt: ['$data.values', 2] } },
-        avgChat2Database: { $avg: { $arrayElemAt: ['$data.values', 3] } },
-      },
-    },
-    {
-      $addFields: {
-        // First round the average values
-        roundedAvgRAG: { $round: ['$avgRAG', 0] },
-        roundedAvgFunctionCalling: { $round: ['$avgFunctionCalling', 0] },
-        roundedAvgAgents: { $round: ['$avgAgents', 0] },
-        roundedAvgChat2Database: { $round: ['$avgChat2Database', 0] },
-      },
-    },
-    {
-      $addFields: {
-        // Calculate the total of the rounded values
-        totalSum: {
-          $add: [
-            '$roundedAvgRAG',
-            '$roundedAvgFunctionCalling',
-            '$roundedAvgAgents',
-            '$roundedAvgChat2Database',
-          ],
-        },
-      },
-    },
-    {
-      $addFields: {
-        // Adjust the values so their sum equals 100
-        adjustedAvgRAG: {
-          $round: [
-            { $multiply: ['$roundedAvgRAG', { $divide: [100, '$totalSum'] }] },
-            0,
-          ],
-        },
-        adjustedAvgFunctionCalling: {
-          $round: [
-            {
-              $multiply: [
-                '$roundedAvgFunctionCalling',
-                { $divide: [100, '$totalSum'] },
-              ],
-            },
-            0,
-          ],
-        },
-        adjustedAvgAgents: {
-          $round: [
-            {
-              $multiply: ['$roundedAvgAgents', { $divide: [100, '$totalSum'] }],
-            },
-            0,
-          ],
-        },
-        adjustedAvgChat2Database: {
-          $round: [
-            {
-              $multiply: [
-                '$roundedAvgChat2Database',
-                { $divide: [100, '$totalSum'] },
-              ],
-            },
-            0,
-          ],
-        },
-      },
-    },
-    {
-      $project: {
-        _id: 1,
-        avgRAG: '$adjustedAvgRAG',
-        avgFunctionCalling: '$adjustedAvgFunctionCalling',
-        avgAgents: '$adjustedAvgAgents',
-        avgChat2Database: '$adjustedAvgChat2Database',
-      },
-    },
-  ]);
-
-  return averages;
-};
-
-const getMostRecentEntries = async (Model) => {
-  const recentEntries = await Model.aggregate([
-    {
-      $sort: {
-        createdAt: -1, // Sort by createdAt in descending order
-      },
-    },
-    {
-      $group: {
-        _id: '$title',
-        mostRecent: { $first: '$$ROOT' }, // Get the most recent document for each title
-      },
-    },
-    {
-      $project: {
-        _id: 0, // Remove the _id field from the result
-        title: '$_id',
-        data: '$mostRecent.data', // Include the data field from the most recent document
-        createdAt: '$mostRecent.createdAt',
-      },
-    },
-  ]);
-
-  return recentEntries;
 };
