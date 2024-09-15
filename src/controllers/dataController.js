@@ -146,6 +146,78 @@ const calculateAverages = async (days, Model) => {
         avgChat2Database: { $avg: { $arrayElemAt: ['$data.values', 3] } },
       },
     },
+    {
+      $addFields: {
+        // First round the average values
+        roundedAvgRAG: { $round: ['$avgRAG', 0] },
+        roundedAvgFunctionCalling: { $round: ['$avgFunctionCalling', 0] },
+        roundedAvgAgents: { $round: ['$avgAgents', 0] },
+        roundedAvgChat2Database: { $round: ['$avgChat2Database', 0] },
+      },
+    },
+    {
+      $addFields: {
+        // Calculate the total of the rounded values
+        totalSum: {
+          $add: [
+            '$roundedAvgRAG',
+            '$roundedAvgFunctionCalling',
+            '$roundedAvgAgents',
+            '$roundedAvgChat2Database',
+          ],
+        },
+      },
+    },
+    {
+      $addFields: {
+        // Adjust the values so their sum equals 100
+        adjustedAvgRAG: {
+          $round: [
+            { $multiply: ['$roundedAvgRAG', { $divide: [100, '$totalSum'] }] },
+            0,
+          ],
+        },
+        adjustedAvgFunctionCalling: {
+          $round: [
+            {
+              $multiply: [
+                '$roundedAvgFunctionCalling',
+                { $divide: [100, '$totalSum'] },
+              ],
+            },
+            0,
+          ],
+        },
+        adjustedAvgAgents: {
+          $round: [
+            {
+              $multiply: ['$roundedAvgAgents', { $divide: [100, '$totalSum'] }],
+            },
+            0,
+          ],
+        },
+        adjustedAvgChat2Database: {
+          $round: [
+            {
+              $multiply: [
+                '$roundedAvgChat2Database',
+                { $divide: [100, '$totalSum'] },
+              ],
+            },
+            0,
+          ],
+        },
+      },
+    },
+    {
+      $project: {
+        _id: 1,
+        avgRAG: '$adjustedAvgRAG',
+        avgFunctionCalling: '$adjustedAvgFunctionCalling',
+        avgAgents: '$adjustedAvgAgents',
+        avgChat2Database: '$adjustedAvgChat2Database',
+      },
+    },
   ]);
 
   return averages;

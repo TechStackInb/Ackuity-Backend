@@ -15,7 +15,16 @@ const ChartDataSchema = new mongoose.Schema(
     data: {
       labels: {
         type: [String],
-        enum: ['RAG', 'Function Calling', 'Agents', 'Chat2Database'],
+        enum: [
+          'RAG',
+          'Function Calling',
+          'Agents',
+          'Chat2Database',
+          'SQL Injection',
+          'User Anamoly',
+          'Agent Anomaly',
+          'API Attacks',
+        ],
         required: true,
       },
       values: {
