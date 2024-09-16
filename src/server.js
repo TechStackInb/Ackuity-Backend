@@ -34,7 +34,10 @@ app.use((req, res, next) => {
   next();
 });
 
-const allowedOrigins = ['https://ackuitypreview.netlify.app'];
+const allowedOrigins = [
+  'https://ackuitypreview.netlify.app',
+  'http://localhost:5000',
+];
 const options = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {

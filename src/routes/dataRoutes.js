@@ -88,7 +88,7 @@ router
 router
   .route('/members')
   .get(protect, dataController.getData(Member))
-  .post(protect, dataController.postData(Member));
+  .post(dataController.postData(Member));
 router
   .route('/members/:id')
   .patch(protect, dataController.updateData(Member))
