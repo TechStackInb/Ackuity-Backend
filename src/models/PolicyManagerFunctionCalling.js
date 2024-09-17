@@ -89,7 +89,7 @@ const FunctionCallSchema = new mongoose.Schema(
     },
     selectApiName: {
       type: String,
-      enum: ['API1', 'API2', 'API3'],
+      enum: ['Sales Opportunities', 'API2', 'API3', 'API4'],
       required: true,
     },
     selectApiDescription: {
