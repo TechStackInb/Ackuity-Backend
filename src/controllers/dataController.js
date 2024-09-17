@@ -18,7 +18,7 @@ exports.getData =
       // Use populate with the provided options (as a string or array)
       const [data, totalCount] = await Promise.all([
         Model.find({})
-          .populate(populateOptions) // Populate multiple fields
+          .populate(populateOptions)
           .skip(startIndex)
           .limit(limitInt),
         Model.countDocuments(),

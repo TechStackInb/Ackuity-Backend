@@ -22,14 +22,14 @@ const functionCallingPlusDataArray = new mongoose.Schema({
     enum: ['Read', 'ReadOrWrite'],
     required: true,
   },
-  actionOnPermissionExisting: [
+  actionOnPermissionExistingMember: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Member',
       required: true,
     },
   ],
-  actionOnPermissionRevised: [
+  actionOnPermissionRevisedMember: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Member',
