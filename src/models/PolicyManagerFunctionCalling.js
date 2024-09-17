@@ -56,7 +56,7 @@ const functionCallingPlusDataArray = new mongoose.Schema({
   },
   actionOnAttributeFilteringValue: {
     type: String,
-    enum: ['Asia', 'America'],
+    enum: ['Asia', 'North America'],
     required: true,
   },
   actionOnAttributeFilteringAction: {
