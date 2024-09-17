@@ -84,7 +84,7 @@ const FunctionCallSchema = new mongoose.Schema(
     },
     genAiApp: {
       type: String,
-      enum: ['App1', 'App2', 'App3', 'App4'],
+      enum: ['App1', 'App2', 'App3', 'Sales Opportunities'],
       required: true,
     },
     selectApiName: {
