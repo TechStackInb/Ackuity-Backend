@@ -91,10 +91,12 @@ exports.deleteData = (Model) => async (req, res) => {
 // Calculate Average
 exports.getAverages = (Model) => async (req, res) => {
   try {
+    const oneDayAverages = await calculateAverages(1, Model);
     const sevenDayAverages = await calculateAverages(7, Model);
     const thirtyDayAverages = await calculateAverages(30, Model);
 
     res.status(200).json({
+      oneDayAverages,
       sevenDayAverages,
       thirtyDayAverages,
     });
