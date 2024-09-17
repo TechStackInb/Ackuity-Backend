@@ -4,12 +4,18 @@ const PolicyManagerPermissionSchema = new mongoose.Schema(
   {
     documentRepository: {
       type: String,
-      enum: ['item1', 'item2', 'item3'],
+      enum: [
+        'http://xyz.sharepoint.com/sites/website',
+        'item2',
+        'item3',
+        'item4',
+        'item5',
+      ],
       required: true,
     },
     documentName: {
       type: String,
-      enum: ['item1', 'item2', 'item3'],
+      enum: ['Document1', 'Document2', 'Document3', 'Document4', 'Document5'],
       required: true,
     },
     members: [
