@@ -22,16 +22,20 @@ const functionCallingPlusDataArray = new mongoose.Schema({
     enum: ['Read', 'ReadOrWrite'],
     required: true,
   },
-  actionOnPermissionExisting: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Member',
-    required: true,
-  },
-  actionOnPermissionRevised: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Member',
-    required: true,
-  },
+  actionOnPermissionExisting: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Member',
+      required: true,
+    },
+  ],
+  actionOnPermissionRevised: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Member',
+      required: true,
+    },
+  ],
   actionOnPrivacyFilteringCategory: {
     type: String,
     enum: ['Name', 'Dob', 'SSN', 'None'],
