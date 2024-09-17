@@ -23,23 +23,23 @@ const functionCallingPlusDataArray = new mongoose.Schema({
     required: true,
   },
   actionOnPermissionExisting: {
-    type: String,
-    enum: ['Sales NA', 'Management'],
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Member',
     required: true,
   },
   actionOnPermissionRevised: {
-    type: [checkBoxSchema],
-    validate: (v) => Array.isArray(v) && v.length == 2,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Member',
     required: true,
   },
   actionOnPrivacyFilteringCategory: {
     type: String,
-    enum: ['Asia', 'North America'],
+    enum: ['Name', 'Dob', 'SSN', 'None'],
     required: true,
   },
   actionOnPrivacyFilteringAction: {
     type: String,
-    enum: ['None', 'Allow', 'Reduct'],
+    enum: ['Anonymize', 'Tokenize', 'None', 'De-identification'],
     required: true,
   },
   actionOnPrivacyFilteringTransformValue: {
@@ -57,7 +57,7 @@ const functionCallingPlusDataArray = new mongoose.Schema({
   },
   actionOnAttributeFilteringAction: {
     type: String,
-    enum: ['Allow', 'Reduct'],
+    enum: ['Allow', 'Redact'],
     required: true,
   },
   actionOnAttributeFilteringTransformValue: {
