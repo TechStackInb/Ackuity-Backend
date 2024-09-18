@@ -3,6 +3,8 @@ const router = express.Router();
 
 const dataController = require('../controllers/dataController');
 const { protect } = require('../middlewares/authMiddleware');
+
+const { getAverages } = require('../utils/calculateAverage');
 const PolicyManagerAttribute = require('../models/PolicyManagerAttribute');
 const PolicyManagerPrivacy = require('../models/PolicyManagerPrivacy');
 const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCalling');
@@ -10,7 +12,6 @@ const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
 const Member = require('../models/Member');
-const ThreatManagementAcData = require('../models/ThreatManagementAcData');
 const PolicyManagerChat2Db = require('../models/PolicyManagerChat2Db');
 
 // PolicyManager Privacy
@@ -77,14 +78,7 @@ router
   .delete(protect, dataController.deleteData(ThreatManagement));
 
 // ThreatManagementAcData
-router
-  .route('/threatManagementacdata')
-  .get(protect, dataController.getData(ThreatManagementAcData))
-  .post(protect, dataController.postData(ThreatManagementAcData));
-router
-  .route('/threatManagementacdata/:id')
-  .patch(protect, dataController.updateData(ThreatManagementAcData))
-  .delete(protect, dataController.deleteData(ThreatManagementAcData));
+router.route('/threatManagementacdata').get(protect, getAverages);
 
 // Chart
 router
