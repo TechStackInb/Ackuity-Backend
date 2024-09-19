@@ -125,6 +125,19 @@ const chat2DbSchema = new mongoose.Schema(
         ref: 'Member',
       },
     ],
+    ONprivacyFilteringCategory: {
+      type: String,
+      enum: ['Name', 'DOB', 'SSN', 'None'],
+      required: true,
+    },
+    ONprivacyFilteringAction: {
+      type: String,
+      enum: ['Anonymize', 'Tokenize', 'None', 'De-Identification'],
+      required: true,
+    },
+    ONprivacyFilteringTransformValue: {
+      type: String,
+    },
     ONattributeFilteringAttribute: {
       type: String,
       enum: ['Department', 'Location'],
@@ -142,6 +155,10 @@ const chat2DbSchema = new mongoose.Schema(
     },
     ONattributeFilteringTransformationValue: {
       type: String,
+    },
+    rowLevelFilteringBasedonValue: {
+      type: String,
+      enum: ['XYZ Corp', 'ABC Corp', 'DEF Corp', 'MNO Corp'],
     },
   },
   {

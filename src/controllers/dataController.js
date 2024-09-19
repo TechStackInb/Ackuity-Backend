@@ -8,7 +8,7 @@ const {
 exports.getData =
   (Model, populateOptions = '') =>
   async (req, res) => {
-    const { page = 1, limit = 10 } = req.query;
+    const { page = 1, limit = 100 } = req.query;
 
     try {
       const pageInt = parseInt(page, 10);
