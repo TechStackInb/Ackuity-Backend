@@ -10,7 +10,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     configurePermissionsSelectRevised: [
@@ -23,7 +22,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     configurePermissionsInsertRevised: [
@@ -36,7 +34,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     configurePermissionsUpdateRevised: [
@@ -49,7 +46,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     configurePermissionsDeleteRevised: [
@@ -77,7 +73,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     ONpermissionsSelectRevised: [
@@ -90,7 +85,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     ONpermissionsInsertRevised: [
@@ -103,7 +97,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     ONpermissionsUpdateRevised: [
@@ -116,7 +109,6 @@ const chat2DbSchema = new mongoose.Schema(
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',
-        required: true,
       },
     ],
     ONpermissionsDeleteRevised: [

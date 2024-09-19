@@ -26,14 +26,12 @@ const functionCallingPlusDataArray = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Member',
-      required: true,
     },
   ],
   actionOnPermissionRevisedMember: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Member',
-      required: true,
     },
   ],
   actionOnPrivacyFilteringCategory: {
