@@ -2,6 +2,11 @@ const mongoose = require('mongoose');
 
 const PolicyManagerPermissionSchema = new mongoose.Schema(
   {
+    documentStore: {
+      type: String,
+      enum: ['Document Store', 'Share Point', 'One Drive'],
+      required: true,
+    },
     documentRepository: {
       type: String,
       enum: [
@@ -13,9 +18,9 @@ const PolicyManagerPermissionSchema = new mongoose.Schema(
       ],
       required: true,
     },
-    documentName: {
+    documentLocation: {
       type: String,
-      enum: ['Document1', 'Document2', 'Document3', 'Document4', 'Document5'],
+      enum: ['Document Location', 'Another Option', 'Another Option'],
       required: true,
     },
     members: [
