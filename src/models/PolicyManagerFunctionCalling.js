@@ -14,7 +14,7 @@ const checkBoxSchema = new mongoose.Schema({
 const functionCallingPlusDataArray = new mongoose.Schema({
   actionOnDataField: {
     type: String,
-    enum: ['Oppurtunity Name', 'Account Name', 'Amount', 'Age'],
+    enum: ['Opportunity Name', 'Account Name', 'Amount', 'Age'],
     required: true,
   },
   actionOnPermission: {
