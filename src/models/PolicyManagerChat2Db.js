@@ -117,11 +117,11 @@ const chat2DbSchema = new mongoose.Schema(
         ref: 'Member',
       },
     ],
-    ONprivacyFilteringCategory: {
-      type: String,
-      enum: ['Name', 'DOB', 'SSN', 'None'],
-      required: true,
-    },
+    // ONprivacyFilteringCategory: {
+    //   type: String,
+    //   enum: ['Name', 'DOB', 'SSN', 'None'],
+    //   required: true,
+    // },
     ONprivacyFilteringAction: {
       type: String,
       enum: ['Anonymize', 'Tokenize', 'None', 'De-Identification'],
