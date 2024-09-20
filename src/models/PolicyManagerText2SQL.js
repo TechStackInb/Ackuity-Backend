@@ -137,7 +137,7 @@ const chat2DbSchema = new mongoose.Schema(
     },
     ONattributeFilteringValue: {
       type: String,
-      enum: ['Asia', 'America'],
+      enum: ['Asia', 'North America'],
       required: true,
     },
     ONattributeFilteringAction: {
@@ -159,7 +159,7 @@ const chat2DbSchema = new mongoose.Schema(
 );
 
 const PolicyManagerChat2Db = mongoose.model(
-  'PolicyManagerChat2Db',
+  'PolicyManagertext2SQL',
   chat2DbSchema
 );
 
