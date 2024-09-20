@@ -34,11 +34,11 @@ const functionCallingPlusDataArray = new mongoose.Schema({
       ref: 'Member',
     },
   ],
-  actionOnPrivacyFilteringCategory: {
-    type: String,
-    enum: ['Name', 'Dob', 'SSN', 'None'],
-    required: true,
-  },
+  // actionOnPrivacyFilteringCategory: {
+  //   type: String,
+  //   enum: ['Name', 'Dob', 'SSN', 'None'],
+  //   required: true,
+  // },
   actionOnPrivacyFilteringAction: {
     type: String,
     enum: ['Anonymize', 'Tokenize', 'None', 'De-identification'],
