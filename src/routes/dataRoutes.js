@@ -43,7 +43,7 @@ router
     protect,
     dataController.getData(
       PolicyManagerFunctionCalling,
-      'actionOnPermissionReadExistingMember actionOnPermissionReadRevisedMember actionOnPermissionReadorWriteExistingMember actionOnPermissionReadorWriteRevisedMember'
+      'functionCallingPlusData.actionOnPermissionReadExistingMember functionCallingPlusData.actionOnPermissionReadRevisedMember functionCallingPlusData.actionOnPermissionReadorWriteExistingMember functionCallingPlusData.actionOnPermissionReadorWriteRevisedMember'
     )
   )
   .post(protect, dataController.postData(PolicyManagerFunctionCalling));

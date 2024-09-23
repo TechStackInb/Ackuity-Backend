@@ -14,6 +14,7 @@ exports.getData =
       const pageInt = parseInt(page, 10);
       const limitInt = parseInt(limit, 10);
       const startIndex = (pageInt - 1) * limitInt;
+      console.log(populateOptions, 'populateOptions');
 
       const [data, totalCount] = await Promise.all([
         Model.find({})
