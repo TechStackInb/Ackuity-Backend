@@ -43,7 +43,11 @@ const attributeSchema = new mongoose.Schema(
     },
     documentLocationOptions: {
       type: String,
-      enum: ['Document Location', 'Another Option', 'Another Option'],
+      enum: [
+        'http://acmecorp.sharepoint.com/sites/operations',
+        'http://acmecorp.sharepoint.com/sites/marketing',
+        'http://acmecorp.sharepoint.com/sites/sales',
+      ],
       required: true,
     },
     multipleSectionData: {
