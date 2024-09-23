@@ -11,7 +11,7 @@ const PolicyManagerFunctionCalling = require('../models/PolicyManagerFunctionCal
 const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
-const Member = require('../models/Members');
+const Member = require('../models/Member');
 const PolicyManagerText2SQL = require('../models/PolicyManagerText2SQL');
 
 // PolicyManager Privacy
