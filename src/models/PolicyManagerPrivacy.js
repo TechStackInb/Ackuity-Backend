@@ -28,7 +28,7 @@ const sectionDataSchema = new mongoose.Schema({
   },
   valueAt: {
     type: String,
-    enum: ['All times', 'One Day', 'One Week', 'All Month'],
+    enum: ['All Times', '1 Day', '1 Week', 'One Month', '1 Year'],
     required: true,
   },
 });
