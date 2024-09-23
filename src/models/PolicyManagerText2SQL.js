@@ -105,9 +105,9 @@ const text2SQLSchema = new mongoose.Schema(
   }
 );
 
-const PolicyManagerChat2Db = mongoose.model(
+const PolicyManagerText2SQL = mongoose.model(
   'PolicyManagertext2SQL',
   text2SQLSchema
 );
 
-module.exports = PolicyManagerChat2Db;
+module.exports = PolicyManagerText2SQL;

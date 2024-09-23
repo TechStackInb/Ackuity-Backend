@@ -12,7 +12,7 @@ const PolicyManagerPermission = require('../models/PolicyManagerPermissions');
 const ThreatManagement = require('../models/ThreatManagement');
 const ChartData = require('../models/ChartData');
 const Member = require('../models/Members');
-const PolicyManagerChat2Db = require('../models/PolicyManagerText2SQL');
+const PolicyManagerText2SQL = require('../models/PolicyManagerText2SQL');
 
 // PolicyManager Privacy
 router
@@ -57,15 +57,15 @@ router
   .patch(protect, dataController.updateData(PolicyManagerPermission))
   .delete(protect, dataController.deleteData(PolicyManagerPermission));
 
-// PolicyManager Chat2Db
+// PolicyManager Text2SQL
 router
-  .route('/policyManagerChat2Db')
-  .get(protect, dataController.getData(PolicyManagerChat2Db))
-  .post(protect, dataController.postData(PolicyManagerChat2Db));
+  .route('/PolicyManagerText2SQL')
+  .get(protect, dataController.getData(PolicyManagerText2SQL))
+  .post(protect, dataController.postData(PolicyManagerText2SQL));
 router
-  .route('/policyManagerChat2Db/:id')
-  .patch(protect, dataController.updateData(PolicyManagerChat2Db))
-  .delete(protect, dataController.deleteData(PolicyManagerChat2Db));
+  .route('/PolicyManagerText2SQL/:id')
+  .patch(protect, dataController.updateData(PolicyManagerText2SQL))
+  .delete(protect, dataController.deleteData(PolicyManagerText2SQL));
 
 // ThreatManagement
 router
