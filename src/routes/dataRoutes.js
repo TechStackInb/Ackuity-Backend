@@ -161,13 +161,7 @@ router
 // PolicyManager Function Calling
 router
   .route('/policyManagerFunctionCalling')
-  .get(
-    protect,
-    dataController.getData(
-      PolicyManagerFunctionCalling,
-      'functionCallingPlusData.actionOnPermissionReadExistingMember functionCallingPlusData.actionOnPermissionReadRevisedMember functionCallingPlusData.actionOnPermissionReadorWriteExistingMember functionCallingPlusData.actionOnPermissionReadorWriteRevisedMember'
-    )
-  )
+  .get(protect, dataController.getData(PolicyManagerFunctionCalling))
   .post(protect, dataController.postData(PolicyManagerFunctionCalling));
 
 router
@@ -178,13 +172,7 @@ router
 // PolicyManager Permissions
 router
   .route('/policyManagerPermissions')
-  .get(
-    protect,
-    dataController.getData(
-      PolicyManagerPermission,
-      'originalPermissionsMembers revisedPermissionsMembers'
-    )
-  )
+  .get(protect, dataController.getData(PolicyManagerPermission))
   .post(protect, dataController.postData(PolicyManagerPermission));
 router
   .route('/policyManagerPermissions/:id')
@@ -194,13 +182,7 @@ router
 // PolicyManager Text2SQL
 router
   .route('/PolicyManagerText2SQL')
-  .get(
-    protect,
-    dataController.getData(
-      PolicyManagerText2SQL,
-      'configurePermissionsSelectExisting configurePermissionsSelectRevised configurePermissionsInsertExisting configurePermissionsInsertRevised configurePermissionsUpdateExisting configurePermissionsUpdateRevised configurePermissionsDeleteExisting configurePermissionsDeleteRevised'
-    )
-  )
+  .get(protect, dataController.getData(PolicyManagerText2SQL))
   .post(protect, dataController.postData(PolicyManagerText2SQL));
 router
   .route('/PolicyManagerText2SQL/:id')
