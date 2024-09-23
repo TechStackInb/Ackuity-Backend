@@ -17,28 +17,31 @@ const functionCallingPlusDataArray = new mongoose.Schema({
     enum: ['Opportunity Name', 'Account Name', 'Amount', 'Age'],
     required: true,
   },
-  actionOnPermission: {
-    type: String,
-    enum: ['Read', 'ReadOrWrite'],
-    required: true,
-  },
-  actionOnPermissionExistingMember: [
+
+  actionOnPermissionReadExistingMember: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Member',
     },
   ],
-  actionOnPermissionRevisedMember: [
+  actionOnPermissionReadRevisedMember: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Member',
     },
   ],
-  // actionOnPrivacyFilteringCategory: {
-  //   type: String,
-  //   enum: ['Name', 'Dob', 'SSN', 'None'],
-  //   required: true,
-  // },
+  actionOnPermissionReadorWriteExistingMember: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Member',
+    },
+  ],
+  actionOnPermissionReadorWriteRevisedMember: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Member',
+    },
+  ],
   actionOnPrivacyFilteringAction: {
     type: String,
     enum: ['Anonymize', 'Tokenize', 'None', 'De-identification'],

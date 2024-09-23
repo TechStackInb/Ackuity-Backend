@@ -7,23 +7,27 @@ const PolicyManagerPermissionSchema = new mongoose.Schema(
       enum: ['Document Store', 'Share Point', 'One Drive'],
       required: true,
     },
-    documentRepository: {
+    documentLocation: {
       type: String,
       enum: [
-        'http://xyz.sharepoint.com/sites/website',
-        'item2',
-        'item3',
-        'item4',
-        'item5',
+        'http://acmecorp.sharepoint.com/sites/operations',
+        'http://acmecorp.sharepoint.com/sites/marketing',
+        'http://acmecorp.sharepoint.com/sites/sales',
       ],
       required: true,
     },
-    documentLocation: {
+    documentName: {
       type: String,
-      enum: ['Document Location', 'Another Option', 'Another Option'],
+      enum: ['Document1', 'Document2', 'Document3', 'Document4', 'Document5'],
       required: true,
     },
-    members: [
+    originalPermissionsMembers: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Member',
+      },
+    ],
+    revisedPermissionsMembers: [
       {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Member',

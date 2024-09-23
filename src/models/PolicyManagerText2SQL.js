@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const chat2DbSchema = new mongoose.Schema(
+const text2SQLSchema = new mongoose.Schema(
   {
     policyName: {
       type: String,
@@ -69,59 +69,6 @@ const chat2DbSchema = new mongoose.Schema(
       enum: ['Opportunity Name', 'Account Name', 'Amount', 'Age'],
       required: true,
     },
-    ONpermissionsSelectExisting: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    ONpermissionsSelectRevised: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    ONpermissionsInsertExisting: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    ONpermissionsInsertRevised: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    ONpermissionsUpdateExisting: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    ONpermissionsUpdateRevised: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    ONpermissionsDeleteExisting: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    ONpermissionsDeleteRevised: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Member',
-      },
-    ],
-    // ONprivacyFilteringCategory: {
-    //   type: String,
-    //   enum: ['Name', 'DOB', 'SSN', 'None'],
-    //   required: true,
-    // },
     ONprivacyFilteringAction: {
       type: String,
       enum: ['Anonymize', 'Tokenize', 'None', 'De-Identification'],
@@ -160,7 +107,7 @@ const chat2DbSchema = new mongoose.Schema(
 
 const PolicyManagerChat2Db = mongoose.model(
   'PolicyManagertext2SQL',
-  chat2DbSchema
+  text2SQLSchema
 );
 
 module.exports = PolicyManagerChat2Db;
