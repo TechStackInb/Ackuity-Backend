@@ -6,8 +6,9 @@ const sectionDataSchema = new mongoose.Schema({
     enum: ['Document1', 'Document2', 'Document3', 'Document4'],
     required: true,
   },
-  documentNameValue: {
+  documentNameThen: {
     type: String,
+    enum: ['Anonymize', 'Tokenize', 'Encrypt', 'De-identification'],
     required: true,
   },
   classifierContains: {
@@ -22,7 +23,6 @@ const sectionDataSchema = new mongoose.Schema({
   },
   valueWith: {
     type: String,
-    enum: ['Confidential', 'Private', 'Public'],
     required: true,
   },
   valueAt: {
