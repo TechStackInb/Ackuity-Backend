@@ -172,7 +172,13 @@ router
 // PolicyManager Permissions
 router
   .route('/policyManagerPermissions')
-  .get(protect, dataController.getData(PolicyManagerPermission))
+  .get(
+    protect,
+    dataController.getData(
+      PolicyManagerPermission,
+      'originalPermissionsMembers revisedPermissionsMembers'
+    )
+  )
   .post(protect, dataController.postData(PolicyManagerPermission));
 router
   .route('/policyManagerPermissions/:id')
