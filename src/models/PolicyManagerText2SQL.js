@@ -4,7 +4,6 @@ const text2SQLSchema = new mongoose.Schema(
   {
     policyName: {
       type: String,
-      required: true,
     },
     configurePermissionsSelectExisting: [
       {
@@ -57,22 +56,18 @@ const text2SQLSchema = new mongoose.Schema(
     ONdataStore: {
       type: String,
       enum: ['DB1', 'DB2', 'DB3'],
-      required: true,
     },
     ONtableView: {
       type: String,
       enum: ['TABLE1', 'TABLE2', 'TABLE3'],
-      required: true,
     },
     ONname: {
       type: String,
       enum: ['Opportunity Name', 'Account Name', 'Amount', 'Age'],
-      required: true,
     },
     ONprivacyFilteringAction: {
       type: String,
       enum: ['Anonymize', 'Tokenize', 'None', 'De-Identification'],
-      required: true,
     },
     ONprivacyFilteringTransformValue: {
       type: String,
@@ -80,17 +75,14 @@ const text2SQLSchema = new mongoose.Schema(
     ONattributeFilteringAttribute: {
       type: String,
       enum: ['Department', 'Location'],
-      required: true,
     },
     ONattributeFilteringValue: {
       type: String,
       enum: ['Asia', 'North America'],
-      required: true,
     },
     ONattributeFilteringAction: {
       type: String,
       enum: ['Allow', 'Redact'],
-      required: true,
     },
     ONattributeFilteringTransformationValue: {
       type: String,
