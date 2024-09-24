@@ -4,47 +4,47 @@ const ThreatManagementSchema = new mongoose.Schema(
   {
     threatName: {
       type: String,
-      required: true,
+      // required: true,
     },
     severity: {
       type: String,
       enum: ['Low', 'Medium', 'High'],
-      required: true,
+      // required: true,
     },
     threatCatagory: {
       type: String,
       enum: ['Broken Access Control', 'Risky', 'Disconnected'],
-      required: true,
+      // required: true,
     },
     source: {
       type: String,
-      required: true,
+      // required: true,
     },
     destination: {
       type: String,
-      required: true,
+      // required: true,
     },
     impactedAssests: {
       type: String,
-      required: true,
+      // required: true,
     },
     eventTime: {
       type: Date,
-      required: true,
+      // required: true,
     },
     affectedUser: {
       type: String,
-      required: true,
+      // required: true,
     },
     status: {
       type: String,
       enum: ['Open', 'In Progress', 'Closed'],
-      required: true,
+      // required: true,
     },
     assignedTo: {
       type: String,
       enum: ['Analyst 1', 'Analyst 2', 'Analyst 3'],
-      required: true,
+      // required: true,
     },
   },
   {

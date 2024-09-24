@@ -4,41 +4,41 @@ const sectionDataSchema = new mongoose.Schema({
   documentNameIf: {
     type: String,
     enum: ['Document1', 'Document2', 'Document3', 'Document4'],
-    required: true,
+    // required: true,
   },
   documentNameThen: {
     type: String,
     enum: ['Anonymize', 'Tokenize', 'Encrypt', 'De-identification'],
-    required: true,
+    // required: true,
   },
   classifierContains: {
     type: String,
     enum: ['Name', 'DOB', 'SSN', 'Age'],
-    required: true,
+    // required: true,
   },
   classifierRole: {
     type: String,
     enum: ['Finance', 'HR', 'Operation'],
-    required: true,
+    // required: true,
   },
   valueWith: {
     type: String,
-    required: true,
+    // required: true,
   },
   valueAt: {
     type: String,
     enum: ['All Times', '1 Day', '1 Week', 'One Month', '1 Year'],
-    required: true,
+    // required: true,
   },
 });
 
 const privacySchema = new mongoose.Schema(
   {
-    policyName: { type: String, required: true },
+    // policyName: { type: String, required: true },
     documentStoreOptions: {
       type: String,
       enum: ['Document Store', 'Share Point', 'One Drive'],
-      required: true,
+      // required: true,
     },
     documentLocationOptions: {
       type: String,
@@ -47,11 +47,11 @@ const privacySchema = new mongoose.Schema(
         'http://acmecorp.sharepoint.com/sites/marketing',
         'http://acmecorp.sharepoint.com/sites/sales',
       ],
-      required: true,
+      // required: true,
     },
     multipleSectionData: {
       type: [sectionDataSchema],
-      required: true,
+      // required: true,
     },
   },
   {

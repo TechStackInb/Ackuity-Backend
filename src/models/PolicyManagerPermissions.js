@@ -5,7 +5,7 @@ const PolicyManagerPermissionSchema = new mongoose.Schema(
     documentStore: {
       type: String,
       enum: ['Document Store', 'Share Point', 'One Drive'],
-      required: true,
+      // required: true,
     },
     documentLocation: {
       type: String,
@@ -14,12 +14,12 @@ const PolicyManagerPermissionSchema = new mongoose.Schema(
         'http://acmecorp.sharepoint.com/sites/marketing',
         'http://acmecorp.sharepoint.com/sites/sales',
       ],
-      required: true,
+      // required: true,
     },
     documentName: {
       type: String,
       enum: ['Document1', 'Document2', 'Document3', 'Document4', 'Document5'],
-      required: true,
+      // required: true,
     },
     originalPermissionsMembers: [
       {

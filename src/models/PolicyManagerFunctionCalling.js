@@ -15,7 +15,7 @@ const functionCallingPlusDataArray = new mongoose.Schema({
   actionOnDataField: {
     type: String,
     enum: ['Opportunity Name', 'Account Name', 'Amount', 'Age'],
-    required: true,
+    // required: true,
   },
 
   actionOnPermissionReadExistingMember: [
@@ -45,7 +45,7 @@ const functionCallingPlusDataArray = new mongoose.Schema({
   actionOnPrivacyFilteringAction: {
     type: String,
     enum: ['Anonymize', 'Tokenize', 'None', 'De-identification'],
-    required: true,
+    // required: true,
   },
   actionOnPrivacyFilteringTransformValue: {
     type: String,
@@ -53,17 +53,17 @@ const functionCallingPlusDataArray = new mongoose.Schema({
   actionOnAttributeFilteringAttribute: {
     type: String,
     enum: ['Department', 'Location'],
-    required: true,
+    // required: true,
   },
   actionOnAttributeFilteringValue: {
     type: String,
     enum: ['Asia', 'North America'],
-    required: true,
+    // required: true,
   },
   actionOnAttributeFilteringAction: {
     type: String,
     enum: ['Allow', 'Redact'],
-    required: true,
+    // required: true,
   },
   actionOnAttributeFilteringTransformValue: {
     type: String,
@@ -76,35 +76,35 @@ const FunctionCallSchema = new mongoose.Schema(
     query: {
       type: String,
       enum: ['Net Sales Orders', 'Total Sales Orders'],
-      required: true,
+      // required: true,
     },
     targetApplication: {
       type: String,
       enum: ['Salesforce', 'Servicenow', 'Microsoft Dynamics'],
-      required: true,
+      // required: true,
     },
     genAiApp: {
       type: String,
       enum: ['App1', 'App2', 'App3'],
-      required: true,
+      // required: true,
     },
     selectApiName: {
       type: String,
       enum: ['Sales Opportunities', 'API2', 'API3', 'API4'],
-      required: true,
+      // required: true,
     },
     selectApiDescription: {
       type: String,
-      required: true,
+      // required: true,
     },
     selectApiDataFields: {
       type: [checkBoxSchema],
       validate: (v) => Array.isArray(v) && v.length == 9,
-      required: true,
+      // required: true,
     },
     functionCallingPlusData: {
       type: [functionCallingPlusDataArray],
-      required: true,
+      // required: true,
     },
   },
   {
