@@ -35,7 +35,10 @@ const sectionDataSchema = new mongoose.Schema({
 
 const attributeSchema = new mongoose.Schema(
   {
-    policyName: { type: String, required: true },
+    policyName: {
+      type: String,
+      // required: true
+    },
     documentStoreOptions: {
       type: String,
       enum: ['Document Store', 'Share Point', 'One Drive'],

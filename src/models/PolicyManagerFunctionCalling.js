@@ -72,7 +72,10 @@ const functionCallingPlusDataArray = new mongoose.Schema({
 
 const FunctionCallSchema = new mongoose.Schema(
   {
-    policyName: { type: String, required: true },
+    policyName: {
+      type: String,
+      // required: true
+    },
     query: {
       type: String,
       enum: ['Net Sales Orders', 'Total Sales Orders'],
