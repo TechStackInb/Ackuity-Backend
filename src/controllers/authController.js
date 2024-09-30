@@ -156,7 +156,3 @@ exports.createUser = async (req, res) => {
     res.status(500).json({ message: error.message });
   }
 };
-
-exports.keepAlive = async (req, res) => {
-  res.status(200).send('Server is alive');
-};
