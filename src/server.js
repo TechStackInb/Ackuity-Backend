@@ -4,26 +4,24 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const csrf = require('csurf');
+// const csrf = require('csurf');
 const connectDB = require('./config/db');
 const logger = require('./utils/logger');
 const { errorHandler } = require('./middlewares/errorMiddleware');
 
-// Load environment variables
 dotenv.config();
 
-// Connect to database
 connectDB();
 
 const app = express();
 
 app.set('trust proxy', 1);
 
-const csrfProtection = csrf({ cookie: true });
+// const csrfProtection = csrf({ cookie: true });
 
-app.use(csrfProtection);
+// app.use(csrfProtection);
 
-// Request Logger Middleware
+// Logger Middleware
 app.use((req, res, next) => {
   const origin = req.headers.origin || req.headers.referer || 'unknown origin';
   const ip = req.ip;
@@ -34,10 +32,7 @@ app.use((req, res, next) => {
   next();
 });
 
-const allowedOrigins = [
-  'https://ackuitypreview.netlify.app',
-  'http://localhost:5173',
-];
+const allowedOrigins = ['https://ackuitypreview.netlify.app'];
 const options = {
   origin: (origin, callback) => {
     if (allowedOrigins.includes(origin) || !origin) {
