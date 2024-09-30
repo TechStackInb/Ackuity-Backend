@@ -2,7 +2,7 @@ const winston = require('winston');
 const DailyRotateFile = require('winston-daily-rotate-file');
 
 const logBuffer = [];
-const logLimit = 4; // Show only the last 2 logs
+const logLimit = 8; // Show only the last 2 logs
 
 // Custom transport for limiting console logs
 const customConsoleTransport = new winston.transports.Console({
