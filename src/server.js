@@ -180,7 +180,7 @@ app.use((req, res, next) => {
 // Set CSRF token in response cookies for the frontend
 app.use((req, res, next) => {
   res.cookie('XSRF-TOKEN', req.csrfToken(), {
-    httpOnly: false,
+    httpOnly: true,
     secure: true,
     sameSite: 'None',
   });
