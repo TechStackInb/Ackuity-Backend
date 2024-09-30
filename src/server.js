@@ -182,7 +182,7 @@ app.use((req, res, next) => {
   res.cookie('XSRF-TOKEN', req.csrfToken(), {
     httpOnly: false,
     secure: true,
-    sameSite: 'Lax',
+    sameSite: 'None',
   });
   next();
 });
