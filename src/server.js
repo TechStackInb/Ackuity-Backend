@@ -4,7 +4,7 @@ const cors = require('cors');
 const helmet = require('helmet');
 const rateLimit = require('express-rate-limit');
 const cookieParser = require('cookie-parser');
-const csrf = require('csurf');
+
 const connectDB = require('./config/db');
 const logger = require('./utils/logger');
 const { errorHandler } = require('./middlewares/errorMiddleware');
@@ -16,9 +16,6 @@ connectDB();
 const app = express();
 
 app.set('trust proxy', 1);
-
-// CSRF protection middleware
-// const csrfProtection = csrf({ cookie: true });
 
 // Logger Middleware
 app.use((req, res, next) => {
@@ -76,30 +73,6 @@ const limiter = rateLimit({
   },
 });
 app.use(limiter);
-
-// CSRF Protection Middleware (except for preflight requests)
-// app.use((req, res, next) => {
-//   if (req.method === 'OPTIONS') {
-//     return next(); // Skip CSRF check for preflight requests
-//   }
-//   csrfProtection(req, res, next);
-// });
-
-// Set CSRF token in response cookies for the frontend
-// app.use((req, res, next) => {
-//   res.cookie('XSRF-TOKEN', req.csrfToken(), {
-//     httpOnly: false,
-//     secure: false,
-//     sameSite: 'None',
-//   });
-//   next();
-// });
-
-// app.use((req, res, next) => {
-//   console.log('Received CSRF token:', req.headers['x-csrf-token']);
-//   console.log('Expected CSRF token:', req.csrfToken());
-//   next();
-// });
 
 // Routes
 app.use('/api/auth', require('./routes/authRoutes'));

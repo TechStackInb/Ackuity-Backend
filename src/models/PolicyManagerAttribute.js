@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const sectionDataSchema = new mongoose.Schema({
   documentNameIf: {
     type: String,
-    enum: ['Document1', 'Document2', 'Document3', 'Document4'],
+    enum: ['Document1', 'Document2', 'Document3', 'Document4', 'Any'],
     // required: true,
   },
   documentNameThen: {
