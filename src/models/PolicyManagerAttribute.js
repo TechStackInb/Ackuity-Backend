@@ -23,7 +23,14 @@ const sectionDataSchema = new mongoose.Schema({
   },
   valueWith: {
     type: String,
-    enum: ['Confidential', 'Private', 'Public'],
+    enum: [
+      'Confidential',
+      'Private',
+      'Public',
+      'Asia',
+      'Europe',
+      'North America',
+    ],
     // required: true,
   },
   valueAt: {

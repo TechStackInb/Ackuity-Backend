@@ -13,7 +13,7 @@ const sectionDataSchema = new mongoose.Schema({
   },
   classifierContains: {
     type: String,
-    enum: ['Name', 'DOB', 'SSN', 'Age'],
+    enum: ['Name', 'DOB', 'SSN', 'Age', 'Standard'],
     // required: true,
   },
   classifierRole: {

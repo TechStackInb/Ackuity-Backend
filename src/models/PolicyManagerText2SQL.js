@@ -18,7 +18,14 @@ const plusDataArray = new mongoose.Schema({
   },
   ONattributeFilteringValue: {
     type: String,
-    enum: ['Asia', 'North America'],
+    enum: [
+      'Asia',
+      'North America',
+      'Sales',
+      'Human Resources',
+      'Finance',
+      'Operations',
+    ],
   },
   ONattributeFilteringAction: {
     type: String,
