@@ -13,7 +13,7 @@ const sectionDataSchema = new mongoose.Schema({
   },
   classifierContains: {
     type: String,
-    enum: ['Document Classification', 'Location', 'Division'],
+    enum: ['Document Classification', 'Location', 'Department'],
     // required: true,
   },
   classifierRole: {
@@ -30,6 +30,10 @@ const sectionDataSchema = new mongoose.Schema({
       'Asia',
       'Europe',
       'North America',
+      'Sales',
+      'Human Resources',
+      'Finance',
+      'Operations',
     ],
     // required: true,
   },
