@@ -14,7 +14,7 @@ const plusDataArray = new mongoose.Schema({
   },
   ONattributeFilteringAttribute: {
     type: String,
-    enum: ['Department', 'Location'],
+    enum: ['None', 'Department', 'Location'],
   },
   ONattributeFilteringValue: {
     type: String,

@@ -18,7 +18,7 @@ const sectionDataSchema = new mongoose.Schema({
   },
   classifierRole: {
     type: String,
-    enum: ['Finance', 'HR', 'Operation'],
+    enum: ['Finance', 'HR', 'Operation', 'All'],
     // required: true,
   },
   valueWith: {

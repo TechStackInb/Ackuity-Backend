@@ -52,7 +52,7 @@ const functionCallingPlusDataArray = new mongoose.Schema({
   },
   actionOnAttributeFilteringAttribute: {
     type: String,
-    enum: ['Department', 'Location'],
+    enum: ['None', 'Department', 'Location'],
     // required: true,
   },
   actionOnAttributeFilteringValue: {
