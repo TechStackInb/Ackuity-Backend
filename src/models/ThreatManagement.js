@@ -43,7 +43,7 @@ const ThreatManagementSchema = new mongoose.Schema(
     },
     assignedTo: {
       type: String,
-      enum: ['Analyst 1', 'Analyst 2', 'Analyst 3'],
+      enum: ['Analyst 1', 'Analyst 2', 'Analyst 3', 'Analyst 4', 'Analyst 5'],
       // required: true,
     },
   },
