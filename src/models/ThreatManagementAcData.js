@@ -36,7 +36,6 @@
 // module.exports = ThreatManagementAcData;
 
 const mongoose = require('mongoose');
-
 const ThreatManagementAcDataSchema = new mongoose.Schema(
   {
     injectionAttacks: {
