@@ -220,6 +220,16 @@ const getThreatData24 = async (startDate, endDate) => {
         userAnomalies: { $sum: '$userAnamalies' },
       },
     },
+    {
+      $project: {
+        _id: 0,
+        totalThreats: { $floor: { $divide: ['$totalThreats', 2] } },
+        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 2] } },
+        apiAttacks: { $floor: { $divide: ['$apiAttacks', 2] } },
+        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 2] } },
+        userAnomalies: { $floor: { $divide: ['$userAnomalies', 2] } },
+      },
+    },
   ]);
 };
 
