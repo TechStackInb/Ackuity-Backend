@@ -243,7 +243,7 @@ const getAverages = async (req, res) => {
 
     const [dataLast24Hours, dataLast7Days, dataLast30Days] = await Promise.all([
       getThreatData24(last24HoursStart, now),
-      getThreatData(last7DaysStart, last7DaysEnd),
+      getThreatData7(last7DaysStart, last7DaysEnd),
       getThreatData(last30DaysStart, last30DaysEnd),
     ]);
 
