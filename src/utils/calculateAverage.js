@@ -143,7 +143,7 @@ const getStartOfDay = (date) => {
   return date;
 };
 
-const getThreatData = async (startDate, endDate) => {
+const getThreatData30 = async (startDate, endDate) => {
   return ThreatManagementAcData.aggregate([
     {
       $match: {
@@ -163,11 +163,11 @@ const getThreatData = async (startDate, endDate) => {
     {
       $project: {
         _id: 0,
-        totalThreats: { $floor: { $divide: ['$totalThreats', 10] } },
-        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 10] } },
-        apiAttacks: { $floor: { $divide: ['$apiAttacks', 10] } },
-        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 10] } },
-        userAnomalies: { $floor: { $divide: ['$userAnomalies', 10] } },
+        totalThreats: { $floor: { $divide: ['$totalThreats', 13] } },
+        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 13] } },
+        apiAttacks: { $floor: { $divide: ['$apiAttacks', 13] } },
+        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 13] } },
+        userAnomalies: { $floor: { $divide: ['$userAnomalies', 13] } },
       },
     },
   ]);
@@ -254,7 +254,7 @@ const getAverages = async (req, res) => {
     const [dataLast24Hours, dataLast7Days, dataLast30Days] = await Promise.all([
       getThreatData24(last24HoursStart, now),
       getThreatData7(last7DaysStart, last7DaysEnd),
-      getThreatData(last30DaysStart, last30DaysEnd),
+      getThreatData30(last30DaysStart, last30DaysEnd),
     ]);
 
     const formatData = (data) => {
