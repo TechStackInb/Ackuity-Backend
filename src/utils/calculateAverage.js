@@ -163,11 +163,31 @@ const getThreatData = async (startDate, endDate) => {
     {
       $project: {
         _id: 0,
-        totalThreats: { $floor: { $divide: ['$totalThreats', 5] } },
-        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 5] } },
-        apiAttacks: { $floor: { $divide: ['$apiAttacks', 5] } },
-        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 5] } },
-        userAnomalies: { $floor: { $divide: ['$userAnomalies', 5] } },
+        totalThreats: { $floor: { $divide: ['$totalThreats', 10] } },
+        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 10] } },
+        apiAttacks: { $floor: { $divide: ['$apiAttacks', 10] } },
+        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 10] } },
+        userAnomalies: { $floor: { $divide: ['$userAnomalies', 10] } },
+      },
+    },
+  ]);
+};
+
+const getThreatData24 = async (startDate, endDate) => {
+  return ThreatManagementAcData.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startDate, $lt: endDate },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalThreats: { $sum: '$totalThreats' },
+        injectionAttacks: { $sum: '$injectionAttacks' },
+        apiAttacks: { $sum: '$apiAttacks' },
+        agentAnomalies: { $sum: '$agentAnamalies' },
+        userAnomalies: { $sum: '$userAnamalies' },
       },
     },
   ]);
@@ -192,7 +212,7 @@ const getAverages = async (req, res) => {
     const last30DaysEnd = startOfToday; // Excludes today
 
     const [dataLast24Hours, dataLast7Days, dataLast30Days] = await Promise.all([
-      getThreatData(last24HoursStart, now),
+      getThreatData24(last24HoursStart, now),
       getThreatData(last7DaysStart, last7DaysEnd),
       getThreatData(last30DaysStart, last30DaysEnd),
     ]);
