@@ -163,11 +163,11 @@ const getThreatData = async (startDate, endDate) => {
     {
       $project: {
         _id: 0,
-        totalThreats: { $floor: { $divide: ['$totalThreats', 7] } },
-        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 7] } },
-        apiAttacks: { $floor: { $divide: ['$apiAttacks', 7] } },
-        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 7] } },
-        userAnomalies: { $floor: { $divide: ['$userAnomalies', 7] } },
+        totalThreats: { $floor: { $divide: ['$totalThreats', 5] } },
+        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 5] } },
+        apiAttacks: { $floor: { $divide: ['$apiAttacks', 5] } },
+        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 5] } },
+        userAnomalies: { $floor: { $divide: ['$userAnomalies', 5] } },
       },
     },
   ]);
