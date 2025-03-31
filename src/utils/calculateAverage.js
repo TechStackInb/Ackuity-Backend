@@ -173,6 +173,36 @@ const getThreatData = async (startDate, endDate) => {
   ]);
 };
 
+const getThreatData7 = async (startDate, endDate) => {
+  return ThreatManagementAcData.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: startDate, $lt: endDate },
+      },
+    },
+    {
+      $group: {
+        _id: null,
+        totalThreats: { $sum: '$totalThreats' },
+        injectionAttacks: { $sum: '$injectionAttacks' },
+        apiAttacks: { $sum: '$apiAttacks' },
+        agentAnomalies: { $sum: '$agentAnamalies' },
+        userAnomalies: { $sum: '$userAnamalies' },
+      },
+    },
+    {
+      $project: {
+        _id: 0,
+        totalThreats: { $floor: { $divide: ['$totalThreats', 12] } },
+        injectionAttacks: { $floor: { $divide: ['$injectionAttacks', 12] } },
+        apiAttacks: { $floor: { $divide: ['$apiAttacks', 12] } },
+        agentAnomalies: { $floor: { $divide: ['$agentAnomalies', 12] } },
+        userAnomalies: { $floor: { $divide: ['$userAnomalies', 12] } },
+      },
+    },
+  ]);
+};
+
 const getThreatData24 = async (startDate, endDate) => {
   return ThreatManagementAcData.aggregate([
     {
